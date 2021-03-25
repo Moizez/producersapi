@@ -7,13 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
-@Entity
 @Data
+@Entity
 public class Producer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,12 +31,16 @@ public class Producer implements Serializable {
 	private String phone;
 
 	private String email;
+	
+	private String password;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 
 	private String cpf;
-	
+
+	//@ManyToOne
+	//@JoinColumn(name = "producer_address")
 	private Address address;
 
 }
