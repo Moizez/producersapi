@@ -3,6 +3,7 @@ package com.producersapi.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,8 +40,8 @@ public class Producer implements Serializable {
 
 	private String cpf;
 
-	//@ManyToOne
-	//@JoinColumn(name = "producer_address")
+	@ManyToOne(cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "producer_address")
 	private Address address;
 
 }

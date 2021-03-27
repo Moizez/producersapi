@@ -35,8 +35,8 @@ public class Address implements Serializable {
 
 	private String reference;
 
-	//@JsonIgnore
-	//@OneToMany(mappedBy = "producer")
-	//private List<Producer> producers;
+	@JsonIgnore
+	@OneToMany(mappedBy = "address")
+	private List<Producer> producers;
 
 }
