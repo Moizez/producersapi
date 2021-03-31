@@ -8,27 +8,31 @@ import org.springframework.stereotype.Service;
 
 import com.producersapi.model.Address;
 import com.producersapi.repository.AddressRepository;
+import com.producersapi.util.EntityService;
 
 @Service
-public class AddressService {
+public class AddressService implements EntityService<Address>{
 
 	@Autowired
 	private AddressRepository repository;
 
-	public Address save(Address address) {
-		return repository.saveAndFlush(address);
+	@Override
+	public void save(Address entity) {
+		repository.saveAndFlush(entity);
 	}
 
+	@Override
 	public List<Address> findAll() {
 		return repository.findAll();
 	}
 
+	@Override
 	public Optional<Address> findById(Integer id) {
 		return repository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
-
 }

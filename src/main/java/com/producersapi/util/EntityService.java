@@ -9,7 +9,7 @@ public interface EntityService<Entity extends Object> {
 
 	public List<Entity> findAll();
 
-	public Optional<Entity> getOne(Integer id);
+	public Optional<Entity> findById(Integer id);
 
-	public void deleteById(Long id);
+	public void deleteById(Integer id);
 }

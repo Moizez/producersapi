@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.producersapi.model.Producer;
 import com.producersapi.service.ProducerService;
 import com.producersapi.util.EntityResource;
+import com.producersapi.util.Response;
 
 @RestController
 @RequestMapping("/api/producers")
-public class ProducerResource implements EntityResource<Producer> {
+public class ProducerResource extends Response<Producer> implements EntityResource<Producer> {
 
 	@Autowired
 	private ProducerService service;
@@ -31,23 +32,12 @@ public class ProducerResource implements EntityResource<Producer> {
 
 	@Override
 	public ResponseEntity<List<Producer>> findAll() {
-		List<Producer> producer = service.findAll();
-		if (producer.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(service.findAll());
+		return findAll(service);
 	}
 
 	@Override
 	public ResponseEntity<Producer> findById(Integer id) {
-		Optional<Producer> producer = service.findById(id);
-
-		if (producer.isPresent()) {
-			return ResponseEntity.ok(producer.get());
-		}
-
-		return ResponseEntity.notFound().build();
-
+		return findById(service, id);
 	}
 
 	@Override
@@ -77,8 +67,8 @@ public class ProducerResource implements EntityResource<Producer> {
 	}
 
 	@PostMapping("/login")
-	public Optional<Producer> login(@RequestBody Producer producer) {
-		return (service.login(producer.getEmail(), producer.getPassword()));
+	public ResponseEntity<?> login(@RequestBody Producer producer) {
+		return get(service.login(producer.getEmail(), producer.getPassword()));
 	}
 
 }

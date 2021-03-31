@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.producersapi.model.FarmingActivity;
 import com.producersapi.service.FarmingActivityService;
 import com.producersapi.util.EntityResource;
+import com.producersapi.util.Response;
 
 @RestController
 @RequestMapping("/api/farming-activities")
-public class FarmingActivityResource implements EntityResource<FarmingActivity> {
+public class FarmingActivityResource extends Response<FarmingActivity> implements EntityResource<FarmingActivity> {
 
 	@Autowired
 	private FarmingActivityService service;
@@ -29,22 +30,12 @@ public class FarmingActivityResource implements EntityResource<FarmingActivity> 
 
 	@Override
 	public ResponseEntity<List<FarmingActivity>> findAll() {
-		List<FarmingActivity> farmingActivity = service.findAll();
-		if (farmingActivity.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(service.findAll());
+		return findAll(service);
 	}
 
 	@Override
 	public ResponseEntity<FarmingActivity> findById(Integer id) {
-		Optional<FarmingActivity> farmingActivity = service.findById(id);
-
-		if (farmingActivity.isPresent()) {
-			return ResponseEntity.ok(farmingActivity.get());
-		}
-
-		return ResponseEntity.notFound().build();
+		return findById(service, id);
 	}
 
 	@Override

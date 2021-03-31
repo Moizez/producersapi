@@ -8,27 +8,31 @@ import org.springframework.stereotype.Service;
 
 import com.producersapi.model.FarmingActivity;
 import com.producersapi.repository.FarmingActivityRepository;
+import com.producersapi.util.EntityService;
 
 @Service
-public class FarmingActivityService {
-	
+public class FarmingActivityService implements EntityService<FarmingActivity> {
+
 	@Autowired
 	private FarmingActivityRepository repository;
 
-	public FarmingActivity save(FarmingActivity farmingActivity) {
-		return repository.saveAndFlush(farmingActivity);
+	@Override
+	public void save(FarmingActivity entity) {
+		repository.saveAndFlush(entity);
 	}
 
+	@Override
 	public List<FarmingActivity> findAll() {
 		return repository.findAll();
 	}
 
+	@Override
 	public Optional<FarmingActivity> findById(Integer id) {
 		return repository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
-
 }

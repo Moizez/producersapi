@@ -8,29 +8,34 @@ import org.springframework.stereotype.Service;
 
 import com.producersapi.model.Producer;
 import com.producersapi.repository.ProducerRepository;
+import com.producersapi.util.EntityService;
 
 @Service
-public class ProducerService {
+public class ProducerService implements EntityService<Producer> {
 
 	@Autowired
 	private ProducerRepository repository;
 
-	public Producer save(Producer producer) {
-		return repository.saveAndFlush(producer);
+	@Override
+	public void save(Producer entity) {
+		repository.saveAndFlush(entity);
 	}
 
+	@Override
 	public List<Producer> findAll() {
 		return repository.findAll();
 	}
 
+	@Override
 	public Optional<Producer> findById(Integer id) {
 		return repository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
-	
+
 	public Optional<Producer> login(String email, String password) {
 		return repository.findByEmailAndPassword(email, password);
 	}
@@ -38,5 +43,4 @@ public class ProducerService {
 	public Producer findByEmail(String email) {
 		return repository.findByEmail(email);
 	}
-
 }

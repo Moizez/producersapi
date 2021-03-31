@@ -8,25 +8,30 @@ import org.springframework.stereotype.Service;
 
 import com.producersapi.model.Manager;
 import com.producersapi.repository.ManagerRepository;
+import com.producersapi.util.EntityService;
 
 @Service
-public class ManagerService {
+public class ManagerService implements EntityService<Manager> {
 
 	@Autowired
 	private ManagerRepository repository;
 
-	public Manager save(Manager manager) {
-		return repository.saveAndFlush(manager);
+	@Override
+	public void save(Manager entity) {
+		repository.saveAndFlush(entity);
 	}
 
+	@Override
 	public List<Manager> findAll() {
 		return repository.findAll();
 	}
 
+	@Override
 	public Optional<Manager> findById(Integer id) {
 		return repository.findById(id);
 	}
 
+	@Override
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
@@ -38,4 +43,5 @@ public class ManagerService {
 	public Manager findByEmail(String email) {
 		return repository.findByEmail(email);
 	}
+
 }

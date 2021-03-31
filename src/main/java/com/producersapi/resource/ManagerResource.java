@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.producersapi.model.Manager;
 import com.producersapi.service.ManagerService;
 import com.producersapi.util.EntityResource;
+import com.producersapi.util.Response;
 
 @RestController
 @RequestMapping("api/managers")
-public class ManagerResource implements EntityResource<Manager> {
+public class ManagerResource extends Response<Manager> implements EntityResource<Manager> {
 
 	@Autowired
 	private ManagerService service;
@@ -31,22 +32,12 @@ public class ManagerResource implements EntityResource<Manager> {
 
 	@Override
 	public ResponseEntity<List<Manager>> findAll() {
-		List<Manager> manager = service.findAll();
-		if (manager.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(service.findAll());
+		return findAll(service);
 	}
 
 	@Override
 	public ResponseEntity<Manager> findById(Integer id) {
-		Optional<Manager> manager = service.findById(id);
-
-		if (manager.isPresent()) {
-			return ResponseEntity.ok(manager.get());
-		}
-
-		return ResponseEntity.notFound().build();
+		return findById(service, id);
 	}
 
 	@Override
@@ -65,9 +56,9 @@ public class ManagerResource implements EntityResource<Manager> {
 
 	@Override
 	public ResponseEntity<Manager> deleteById(Integer id) {
-		Optional<Manager> producer = service.findById(id);
+		Optional<Manager> manager = service.findById(id);
 
-		if (producer.isPresent()) {
+		if (manager.isPresent()) {
 			service.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
@@ -76,8 +67,8 @@ public class ManagerResource implements EntityResource<Manager> {
 	}
 
 	@PostMapping("/login")
-	public Optional<Manager> login(@RequestBody Manager manager) {
-		return (service.login(manager.getEmail(), manager.getPassword()));
+	public ResponseEntity<?> login(@RequestBody Manager manager) {
+		return get(service.login(manager.getEmail(), manager.getPassword()));
 	}
 
 }

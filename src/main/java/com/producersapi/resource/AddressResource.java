@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.producersapi.model.Address;
 import com.producersapi.service.AddressService;
 import com.producersapi.util.EntityResource;
+import com.producersapi.util.Response;
 
 @RestController
 @RequestMapping("api/adresses")
-public class AddressResource implements EntityResource<Address> {
+public class AddressResource extends Response<Address> implements EntityResource<Address> {
 
 	@Autowired
 	private AddressService service;
@@ -29,22 +30,12 @@ public class AddressResource implements EntityResource<Address> {
 
 	@Override
 	public ResponseEntity<List<Address>> findAll() {
-		List<Address> address = service.findAll();
-		if (address.isEmpty()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(service.findAll());
+		return findAll(service);
 	}
 
 	@Override
 	public ResponseEntity<Address> findById(Integer id) {
-		Optional<Address> address = service.findById(id);
-
-		if (address.isPresent()) {
-			return ResponseEntity.ok(address.get());
-		}
-
-		return ResponseEntity.notFound().build();
+		return findById(service, id);
 	}
 
 	@Override
@@ -72,5 +63,4 @@ public class AddressResource implements EntityResource<Address> {
 
 		return ResponseEntity.notFound().build();
 	}
-
 }
