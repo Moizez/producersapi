@@ -11,5 +11,5 @@ import com.producersapi.model.Manager;
 public interface ManagerRepository extends JpaRepository<Manager, Integer> {
 
 	public Optional<Manager> findByEmailAndPassword(String email, String password);
-
+	public Manager findByEmail(String email);
 }

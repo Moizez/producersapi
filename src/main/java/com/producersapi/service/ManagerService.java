@@ -18,15 +18,15 @@ public class ManagerService {
 	public Manager save(Manager manager) {
 		return repository.saveAndFlush(manager);
 	}
-	
-	public List<Manager> findAll(){
+
+	public List<Manager> findAll() {
 		return repository.findAll();
 	}
-	
+
 	public Optional<Manager> findById(Integer id) {
 		return repository.findById(id);
 	}
-	
+
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
@@ -35,4 +35,7 @@ public class ManagerService {
 		return repository.findByEmailAndPassword(email, password);
 	}
 
+	public Manager findByEmail(String email) {
+		return repository.findByEmail(email);
+	}
 }

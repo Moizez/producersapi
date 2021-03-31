@@ -30,9 +30,13 @@ public class ProducerService {
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
-
+	
 	public Optional<Producer> login(String email, String password) {
 		return repository.findByEmailAndPassword(email, password);
+	}
+
+	public Producer findByEmail(String email) {
+		return repository.findByEmail(email);
 	}
 
 }

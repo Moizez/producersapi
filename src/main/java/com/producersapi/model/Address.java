@@ -27,6 +27,8 @@ public class Address implements Serializable {
 	private String uf;
 
 	private String city;
+	
+	private String zipCode;
 
 	private String district;
 

@@ -11,6 +11,7 @@ import com.producersapi.model.Producer;
 public interface ProducerRepository extends JpaRepository<Producer, Integer>{
 
 	public Optional<Producer> findByEmailAndPassword(String email, String password);
+	public Producer findByEmail(String email);
 	
 
 }
