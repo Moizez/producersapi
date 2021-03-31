@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-/*Useful interface for resource classes to
- implement the standard methods of a restfull api*/
-
 public interface EntityResource<Entity extends Object> {
 
 	@PostMapping
@@ -22,7 +19,7 @@ public interface EntityResource<Entity extends Object> {
 	public ResponseEntity<List<Entity>> findAll();
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Entity> getOne(@PathVariable("id") Integer id);
+	public ResponseEntity<Entity> findById(@PathVariable("id") Integer id);
 
 	@PutMapping("/{id}")
 	public ResponseEntity<Entity> updateById(@PathVariable("id") Integer id, @RequestBody Entity entity);

@@ -6,32 +6,32 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.producersapi.model.Producer;
-import com.producersapi.repository.ProducerRepository;
+import com.producersapi.model.Manager;
+import com.producersapi.repository.ManagerRepository;
 
 @Service
-public class ProducerService {
+public class ManagerService {
 
 	@Autowired
-	private ProducerRepository repository;
+	private ManagerRepository repository;
 
-	public Producer save(Producer producer) {
-		return repository.saveAndFlush(producer);
+	public Manager save(Manager manager) {
+		return repository.saveAndFlush(manager);
 	}
-
-	public List<Producer> findAll() {
+	
+	public List<Manager> findAll(){
 		return repository.findAll();
 	}
-
-	public Optional<Producer> findById(Integer id) {
+	
+	public Optional<Manager> findById(Integer id) {
 		return repository.findById(id);
 	}
-
+	
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
 
-	public Optional<Producer> login(String email, String password) {
+	public Optional<Manager> login(String email, String password) {
 		return repository.findByEmailAndPassword(email, password);
 	}
 

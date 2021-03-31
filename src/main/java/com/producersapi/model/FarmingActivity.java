@@ -8,15 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.producersapi.enums.ActivitiesName;
 
 import lombok.Data;
 
 @Data
 @Entity
-public class Address implements Serializable {
+public class FarmingActivity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,24 +24,14 @@ public class Address implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 
-	private String uf;
+	private ActivitiesName activityName;
 
-	private String city;
+	private String product;
 
-	private String district;
-
-	private String street;
-
-	private String houseNumber;
-
-	private String reference;
-
+	private float averageCash;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy = "address")
 	private List<Producer> producers;
-	
-	@JsonIgnore
-	@OneToOne(mappedBy = "address")
-	private Manager manager;
 
 }

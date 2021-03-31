@@ -1,6 +1,7 @@
 package com.producersapi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class AddressService {
 		return repository.findAll();
 	}
 
-	public Address getOne(Integer id) {
-		return repository.getOne(id);
+	public Optional<Address> findById(Integer id) {
+		return repository.findById(id);
 	}
 
 	public void deleteById(Integer id) {

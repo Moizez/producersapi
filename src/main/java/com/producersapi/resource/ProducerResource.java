@@ -39,8 +39,8 @@ public class ProducerResource implements EntityResource<Producer> {
 	}
 
 	@Override
-	public ResponseEntity<Producer> getOne(Integer id) {
-		Optional<Producer> producer = service.getOne(id);
+	public ResponseEntity<Producer> findById(Integer id) {
+		Optional<Producer> producer = service.findById(id);
 
 		if (producer.isPresent()) {
 			return ResponseEntity.ok(producer.get());
@@ -52,7 +52,7 @@ public class ProducerResource implements EntityResource<Producer> {
 
 	@Override
 	public ResponseEntity<Producer> updateById(Integer id, Producer entity) {
-		Optional<Producer> producer = service.getOne(id);
+		Optional<Producer> producer = service.findById(id);
 
 		if (producer.isPresent()) {
 			BeanUtils.copyProperties(entity, producer.get(), "id");
@@ -66,7 +66,7 @@ public class ProducerResource implements EntityResource<Producer> {
 
 	@Override
 	public ResponseEntity<Producer> deleteById(Integer id) {
-		Optional<Producer> producer = service.getOne(id);
+		Optional<Producer> producer = service.findById(id);
 
 		if (producer.isPresent()) {
 			service.deleteById(id);
@@ -75,7 +75,7 @@ public class ProducerResource implements EntityResource<Producer> {
 
 		return ResponseEntity.notFound().build();
 	}
-	
+
 	@PostMapping("/login")
 	public Optional<Producer> login(@RequestBody Producer producer) {
 		return (service.login(producer.getEmail(), producer.getPassword()));
