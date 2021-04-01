@@ -61,7 +61,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 		Producer producer = producerService.findByEmail("vina@gmail.com");
 
 		FarmingActivity farmingActivity = new FarmingActivity();
-		farmingActivity.setActivityName(ActivitiesName.AGRICULTOR);
+		farmingActivity.setActivityName(ActivitiesName.Agricultor);
 		farmingActivity.setProduct("Feijão");
 		farmingActivity.setAverageCash(3000);
 

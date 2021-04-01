@@ -18,7 +18,7 @@ import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;
 
 @RestController
-@RequestMapping("api/managers")
+@RequestMapping("/api")
 public class ManagerResource extends Response<Manager> implements EntityResource<Manager> {
 
 	@Autowired
@@ -66,7 +66,7 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 		return ResponseEntity.notFound().build();
 	}
 
-	@PostMapping("/login")
+	@PostMapping("/managers/login")
 	public ResponseEntity<?> login(@RequestBody Manager manager) {
 		return get(service.login(manager.getEmail(), manager.getPassword()));
 	}
