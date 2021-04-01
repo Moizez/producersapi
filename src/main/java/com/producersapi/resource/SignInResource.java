@@ -17,7 +17,7 @@ public class SignInResource {
 
 	@Autowired
 	private SignInService service;
-	
+
 	@PostMapping("/signin")
 	public ResponseEntity<?> signIn(@RequestBody Manager manager) {
 		if (manager.getEmail() != null && manager.getPassword() != null) {
