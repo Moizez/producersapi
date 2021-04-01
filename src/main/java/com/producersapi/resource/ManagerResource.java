@@ -7,8 +7,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,7 +16,7 @@ import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/managers")
 public class ManagerResource extends Response<Manager> implements EntityResource<Manager> {
 
 	@Autowired
@@ -65,10 +63,4 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 
 		return ResponseEntity.notFound().build();
 	}
-
-	@PostMapping("/managers/login")
-	public ResponseEntity<?> login(@RequestBody Manager manager) {
-		return get(service.login(manager.getEmail(), manager.getPassword()));
-	}
-
 }

@@ -36,7 +36,7 @@ public class ProducerService implements EntityService<Producer> {
 		repository.deleteById(id);
 	}
 
-	public Optional<Producer> login(String email, String password) {
+	public Optional<Producer> onSignIn(String email, String password) {
 		return repository.findByEmailAndPassword(email, password);
 	}
 

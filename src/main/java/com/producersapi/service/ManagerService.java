@@ -36,7 +36,7 @@ public class ManagerService implements EntityService<Manager> {
 		repository.deleteById(id);
 	}
 
-	public Optional<Manager> login(String email, String password) {
+	public Optional<Manager> onSignIn(String email, String password) {
 		return repository.findByEmailAndPassword(email, password);
 	}
 

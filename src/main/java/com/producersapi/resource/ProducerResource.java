@@ -7,9 +7,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,7 +29,6 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 	}
 
 	@Override
-	@GetMapping("/all")
 	public ResponseEntity<List<Producer>> findAll() {
 		return findAll(service);
 	}
@@ -67,10 +63,4 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 
 		return ResponseEntity.notFound().build();
 	}
-
-	@PostMapping("login")
-	public ResponseEntity<?> login(@RequestBody Producer producer) {
-		return get(service.login(producer.getEmail(), producer.getPassword()));
-	}
-
 }
