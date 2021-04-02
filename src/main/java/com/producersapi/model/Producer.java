@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 
 @Data
@@ -32,17 +34,22 @@ public class Producer implements Serializable {
 	private String phone;
 
 	private String email;
-
+	
+	@JsonIgnore
 	private String password;
 	
 	private int role = 1;
 	
 	private int profile;
-
+	
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthDate;
 
 	private String cpf;
+	
+	@ManyToOne
+	@JoinColumn(name = "producer_manager")
+	private Manager manager;
 
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "producer_address")

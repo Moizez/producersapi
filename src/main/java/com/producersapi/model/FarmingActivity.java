@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.producersapi.enums.ActivitiesName;
+import com.producersapi.enums.Period;
+import com.producersapi.enums.ProductsName;
 
 import lombok.Data;
 
@@ -26,7 +28,9 @@ public class FarmingActivity implements Serializable {
 
 	private ActivitiesName activityName;
 
-	private String product;
+	private ProductsName productName;
+	
+	private Period period;
 
 	private float averageCash;
 	

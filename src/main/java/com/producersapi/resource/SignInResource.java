@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.producersapi.model.Manager;
+import com.producersapi.model.User;
 import com.producersapi.service.SignInService;
 
 @RestController
@@ -19,9 +19,9 @@ public class SignInResource {
 	private SignInService service;
 
 	@PostMapping("/signin")
-	public ResponseEntity<?> signIn(@RequestBody Manager manager) {
-		if (manager.getEmail() != null && manager.getPassword() != null) {
-			Object obj = service.signIn(manager.getEmail(), manager.getPassword());
+	public ResponseEntity<?> signIn(@RequestBody User user) {
+		if (user.getEmail() != null && user.getPassword() != null) {
+			Object obj = service.signIn(user.getEmail(), user.getPassword());
 			return new ResponseEntity<Object>(obj, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);

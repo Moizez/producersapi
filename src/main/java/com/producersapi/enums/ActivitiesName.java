@@ -1,5 +1,5 @@
 package com.producersapi.enums;
 
 public enum ActivitiesName {
-	Agricultor, Pescador, Apicultor;
+	Agricultor, Pescador, Apicultor, Leiteiro, Outra;
 }

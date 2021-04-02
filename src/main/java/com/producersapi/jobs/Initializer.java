@@ -8,6 +8,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import com.producersapi.enums.ActivitiesName;
+import com.producersapi.enums.Period;
+import com.producersapi.enums.ProductsName;
 import com.producersapi.model.Address;
 import com.producersapi.model.FarmingActivity;
 import com.producersapi.model.Manager;
@@ -59,10 +61,12 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 
 	private void createProducer() {
 		Producer producer = producerService.findByEmail("vina@gmail.com");
+		Manager manager = managerService.findByEmail("leo@gmail.com");
 
 		FarmingActivity farmingActivity = new FarmingActivity();
 		farmingActivity.setActivityName(ActivitiesName.Agricultor);
-		farmingActivity.setProduct("Feijão");
+		farmingActivity.setProductName(ProductsName.Feijão);;
+		farmingActivity.setPeriod(Period.Mensal);
 		farmingActivity.setAverageCash(3000);
 
 		Address address = new Address();
@@ -83,6 +87,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 			producer.setPhone("(84)96666-6666");
 			producer.setEmail("vina@gmail.com");
 			producer.setPassword("123");
+			producer.setManager(manager);
 			producer.setFarmingActivity(farmingActivity);
 			producer.setAddress(address);
 			producerService.save(producer);
