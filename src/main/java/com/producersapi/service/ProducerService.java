@@ -43,4 +43,12 @@ public class ProducerService implements EntityService<Producer> {
 	public Producer findByEmail(String email) {
 		return repository.findByEmail(email);
 	}
+
+	public List<Producer> findByNameOrNickname(String name) {
+		return repository.findByNameOrNickname(name);
+	}
+
+	public List<Producer> findByManager(Integer id) {
+		return repository.findByManager(id);
+	}
 }

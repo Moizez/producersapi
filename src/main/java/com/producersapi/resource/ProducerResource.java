@@ -7,6 +7,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -62,5 +64,15 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 		}
 
 		return ResponseEntity.notFound().build();
+	}
+
+	@GetMapping("/findByName0rNickname/{name}")
+	public List<Producer> findByNameOrNickname(@PathVariable("name") String name) {
+		return service.findByNameOrNickname(name);
+	}
+
+	@GetMapping("/findProducersByManager")
+	public List<Producer> findByManager(@PathVariable("id") Integer id) {
+		return service.findByManager(id);
 	}
 }
