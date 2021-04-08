@@ -58,5 +58,57 @@ public class Producer implements Serializable {
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "producer_activity")
 	private FarmingActivity farmingActivity;
+	
+	
+	
+	public void setName(String name) {
+		this.name=name;
+		
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+		
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf=cpf;
+		
+	}
+
+	public void setBirthDate(Date date) {
+		this.birthDate = date;
+		
+	}
+
+	public void setPhone(String phone) {
+		this.phone=phone;
+		
+	}
+
+	public void setEmail(String email) {
+		this.email=email;
+		
+	}
+
+	public void setPassword(String password) {
+		this.password=password;
+		
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+		
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+
+	}
+
+	public void setFarmingActivity(FarmingActivity farmingActivity) {
+		this.farmingActivity = farmingActivity;
+
+	}
 
 }

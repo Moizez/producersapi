@@ -46,4 +46,39 @@ public class Address implements Serializable {
 	@OneToOne(mappedBy = "address")
 	private Manager manager;
 
+	public void setUf(String uf) {
+		this.uf=uf;
+		
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+		
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode=zipCode;
+		
+	}
+
+	public void setDistrict(String district) {
+		this.district = district;
+		
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+		
+	}
+
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
+		
+	}
+
+	public void setReference(String reference) {
+		this.reference = reference;
+		
+	}
+
 }

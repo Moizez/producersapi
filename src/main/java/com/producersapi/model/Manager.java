@@ -55,4 +55,44 @@ public class Manager implements Serializable {
 	@OneToMany(mappedBy = "manager")
 	private List<Producer> producers;
 
+	public void setName(String name) {
+		this.name=name;
+		
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+		
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf=cpf;
+		
+	}
+
+	public void setBirthDate(Date date) {
+		this.birthDate = date;
+		
+	}
+
+	public void setPhone(String phone) {
+		this.phone=phone;
+		
+	}
+
+	public void setEmail(String email) {
+		this.email=email;
+		
+	}
+
+	public void setPassword(String password) {
+		this.password=password;
+		
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+		
+	}
+
 }

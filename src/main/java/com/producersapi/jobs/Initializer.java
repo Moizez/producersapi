@@ -44,7 +44,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 		address.setStreet("Rua Cicero Celino");
 		address.setHouseNumber("44");
 		address.setReference("Próximo ao espetinho do Léo");
-
+		
 		if (manager == null) {
 			manager = new Manager();
 			manager.setName("Leandro Rêgo");

@@ -38,4 +38,24 @@ public class FarmingActivity implements Serializable {
 	@OneToMany(mappedBy = "address")
 	private List<Producer> producers;
 
+	public void setProductName(ProductsName productName) {
+		this.productName = productName;
+		
+	}
+
+	public void setActivityName(ActivitiesName activityName) {
+		this.activityName = activityName;
+		
+	}
+
+	public void setPeriod(Period period) {
+		this.period = period;
+		
+	}
+
+	public void setAverageCash(float averageCash) {
+		this.averageCash = averageCash;
+		
+	}
+
 }
