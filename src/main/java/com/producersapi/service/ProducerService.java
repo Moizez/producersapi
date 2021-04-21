@@ -40,6 +40,10 @@ public class ProducerService implements EntityService<Producer> {
 		return repository.findByEmailAndPassword(email, password);
 	}
 
+	public List<Producer> findByActiveProducers() {
+		return repository.findByActiveProducers();
+	}
+		
 	public Producer findByEmail(String email) {
 		return repository.findByEmail(email);
 	}

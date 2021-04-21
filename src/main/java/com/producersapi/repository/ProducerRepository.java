@@ -16,6 +16,9 @@ public interface ProducerRepository extends JpaRepository<Producer, Integer> {
 	public Optional<Producer> findByEmailAndPassword(String email, String password);
 
 	public Producer findByEmail(String email);
+	
+	@Query(value = "select * from producer p where p.status = true", nativeQuery = true)
+	public List<Producer> findByActiveProducers();
 
 	@Query(value = "select * from producer p where p.name like concat('%', :name, '%')\n"
 			+ "	|| p.nickname like concat('%', :name, '%')\n" + ";", nativeQuery = true)

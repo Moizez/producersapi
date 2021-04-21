@@ -16,7 +16,7 @@ import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;
 
 @RestController
-@RequestMapping("api/adresses")
+@RequestMapping("/api/adresses")
 public class AddressResource extends Response<Address> implements EntityResource<Address> {
 
 	@Autowired

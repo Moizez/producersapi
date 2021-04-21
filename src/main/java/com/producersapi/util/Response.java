@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 
-/*Class Util para reutilizar a resposta do resources*/
-
 public abstract class Response<Entity extends Object> {
 	public ResponseEntity<List<Entity>> findAll(List<Entity> entities){
 		if (!entities.isEmpty()) {

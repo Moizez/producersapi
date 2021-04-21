@@ -26,6 +26,9 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 
 	@Override
 	public ResponseEntity<Producer> save(Producer entity) {
+		
+		System.out.println("PRODUTOR: " + entity);
+		
 		service.save(entity);
 		return new ResponseEntity<Producer>(entity, HttpStatus.CREATED);
 	}
@@ -45,7 +48,8 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 		Optional<Producer> producer = service.findById(id);
 
 		if (producer.isPresent()) {
-			BeanUtils.copyProperties(entity, producer.get(), "id");
+
+			BeanUtils.copyProperties(entity, producer.get(), "id", "password");
 
 			service.save(producer.get());
 			return ResponseEntity.ok(producer.get());
@@ -64,6 +68,11 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 		}
 
 		return ResponseEntity.notFound().build();
+	}
+
+	@GetMapping("/active")
+	public List<Producer> findByActiveProducers() {
+		return service.findByActiveProducers();
 	}
 
 	@GetMapping("/findByName0rNickname/{name}")

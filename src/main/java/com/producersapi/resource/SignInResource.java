@@ -22,9 +22,10 @@ public class SignInResource {
 	public ResponseEntity<?> signIn(@RequestBody User user) {
 		if (user.getEmail() != null && user.getPassword() != null) {
 			Object obj = service.signIn(user.getEmail(), user.getPassword());
-			return new ResponseEntity<Object>(obj, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
+			if (obj != null) {
+				return new ResponseEntity<Object>(obj, HttpStatus.OK);
+			}
 		}
+		return new ResponseEntity<Object>(HttpStatus.NOT_FOUND);
 	}
 }
