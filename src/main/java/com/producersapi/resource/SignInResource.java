@@ -3,6 +3,7 @@ package com.producersapi.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import com.producersapi.model.User;
 import com.producersapi.service.SignInService;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class SignInResource {
 

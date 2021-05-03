@@ -7,6 +7,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,6 +17,7 @@ import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/adresses")
 public class AddressResource extends Response<Address> implements EntityResource<Address> {
 
