@@ -47,10 +47,12 @@ public class Producer implements Serializable {
 	private String password;
 
 	private int role = 1;
+	
+	private String birthDate;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
-	private Date birthDate;
+	private Date birthDate2;
 
 	private String cpf;
 
