@@ -40,4 +40,8 @@ public class ProductService implements EntityService<Product> {
 		return repository.findByLabel(label);
 	}
 
+	public Product findByValue(Integer value) {
+		return repository.findByValue(value);
+	}
+
 }

@@ -28,4 +28,8 @@ public class Product implements Serializable {
 	@JsonIgnore
 	@ManyToMany(mappedBy = "products")
 	private List<Producer> producers;
+
+	public List<Producer> getProducers() {
+		return producers;
+	}
 }

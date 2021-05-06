@@ -10,4 +10,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	public Product findByLabel(String label);
 
+	public Product findByValue(Integer Value);
+
 }
