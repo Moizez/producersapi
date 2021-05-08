@@ -28,9 +28,7 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 
 	@Override
 	public ResponseEntity<Producer> save(Producer entity) {
-		
-		System.out.println("PRODUTOR: " + entity);
-		
+
 		service.save(entity);
 		return new ResponseEntity<Producer>(entity, HttpStatus.CREATED);
 	}
@@ -86,8 +84,8 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 	public List<Producer> findByManager(@PathVariable("id") Integer id) {
 		return service.findByManager(id);
 	}
-	
-	@GetMapping("/byactivity/{activityname}")
+
+	@GetMapping("/findByActivity/{activityname}")
 	public ResponseEntity<List<Producer>> findByActivity(@PathVariable("activityname") String activityName) {
 		return ResponseEntity.ok(service.findByActivity(activityName));
 	}

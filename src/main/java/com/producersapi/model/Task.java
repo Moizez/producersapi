@@ -1,7 +1,6 @@
 package com.producersapi.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -31,10 +27,8 @@ public class Task implements Serializable{
 	
 	private boolean status;
 	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
 	@Column(name = "task_date")
-	private Date date;
+	private String date;
 	
 	@JsonIgnore
 	@ManyToOne

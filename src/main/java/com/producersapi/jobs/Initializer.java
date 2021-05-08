@@ -7,15 +7,10 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-import com.producersapi.enums.ActivitiesName;
-import com.producersapi.enums.Period;
 import com.producersapi.model.Address;
-import com.producersapi.model.FarmingActivity;
 import com.producersapi.model.Manager;
-import com.producersapi.model.Producer;
 import com.producersapi.model.Product;
 import com.producersapi.service.ManagerService;
-import com.producersapi.service.ProducerService;
 import com.producersapi.service.ProductService;
 
 @Component
@@ -25,15 +20,11 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 	private ManagerService managerService;
 
 	@Autowired
-	private ProducerService producerService;
-
-	@Autowired
 	private ProductService productService;
 
 	@Override
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		createManager();
-		//createProducer();
 		createProducts();
 		System.out.println("----- Usuários Criados com Sucesso! -----");
 	}
@@ -49,7 +40,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 		address.setStreet("Rua Cicero Celino");
 		address.setHouseNumber("44");
 		address.setReference("Próximo ao espetinho do Léo");
-		
+
 		if (manager == null) {
 			manager = new Manager();
 			manager.setName("Leandro Rêgo");
@@ -62,42 +53,6 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 			manager.setAddress(address);
 			manager.setTasks(null);
 			managerService.save(manager);
-		}
-	}
-
-	private void createProducer() {
-		Producer producer = producerService.findByEmail("vina@gmail.com");
-		Manager manager = managerService.findByEmail("leo@gmail.com");
-
-		FarmingActivity farmingActivity = new FarmingActivity();
-		farmingActivity.setActivityName(ActivitiesName.Agricultor);
-		farmingActivity.setProducers(null);
-		farmingActivity.setPeriod(Period.Mensal);
-		farmingActivity.setAverageCash(3000);
-		;
-
-		Address address = new Address();
-		address.setUf("RN");
-		address.setCity("Itaú");
-		address.setZipCode("59855-000");
-		address.setDistrict("Felicidade");
-		address.setStreet("Rua José Domingos");
-		address.setHouseNumber("36");
-		address.setReference("Próximo ao Cantinho da Sopa");
-
-		if (producer == null) {
-			producer = new Producer();
-			producer.setName("Vinícius Carneiro");
-			producer.setNickname("Vina");
-			producer.setCpf("855.036.400-20");
-			producer.setBirthDate(new Date());
-			producer.setPhone("(84)96666-6666");
-			producer.setEmail("vina@gmail.com");
-			producer.setPassword("123");
-			producer.setManager(manager);
-			producer.setFarmingActivity(farmingActivity);
-			producer.setAddress(address);
-			producerService.save(producer);
 		}
 	}
 
