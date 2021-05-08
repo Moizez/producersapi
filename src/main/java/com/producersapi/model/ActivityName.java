@@ -3,41 +3,35 @@ package com.producersapi.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.producersapi.enums.Period;
+
 import lombok.Data;
 
 @Data
 @Entity
-public class FarmingActivity implements Serializable {
+public class ActivityName implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer id;
+	private Integer value;
 
-	@ManyToOne
-	private ActivityName activityName;
-
-	private Period period;
-
-	private float averageCash;
-
+	private String label;
+	
 	@JsonIgnore
-	@OneToMany(mappedBy = "farmingActivity", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Producer> producers;
+	@OneToMany(mappedBy = "activityName")
+	private List<FarmingActivity> FarmingActivities;
 
-	public ActivityName getActivityName() {
-		return activityName;
+	public Integer getValue() {
+		return value;
 	}
 
 }

@@ -57,13 +57,13 @@ public class ProducerService implements EntityService<Producer> {
 		return repository.findByManager(id);
 	}
 	
-	public List<Producer> findByActivity(String activityName) {
+	public List<Producer> findByActivity(Integer activityId) {
 		List<Producer> producers = findAll(); 
 		List<Producer> producersByActivity = new ArrayList<Producer>();
 		producers.forEach(producer -> {
 			if(
-					producer.getFarmingActivity().getActivityName().name() != null &&
-					activityName.equals(producer.getFarmingActivity().getActivityName().name())){
+					producer.getFarmingActivity() != null &&
+					activityId == producer.getFarmingActivity().getActivityName().getValue()){
 				producersByActivity.add(producer);
 			}
 		});
