@@ -86,4 +86,9 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 	public List<Producer> findByManager(@PathVariable("id") Integer id) {
 		return service.findByManager(id);
 	}
+	
+	@GetMapping("/byactivity/{activityname}")
+	public ResponseEntity<List<Producer>> findByActivity(@PathVariable("activityname") String activityName) {
+		return ResponseEntity.ok(service.findByActivity(activityName));
+	}
 }

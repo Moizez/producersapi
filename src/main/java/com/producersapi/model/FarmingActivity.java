@@ -36,4 +36,8 @@ public class FarmingActivity implements Serializable {
 	@OneToMany(mappedBy = "farmingActivity", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Producer> producers;
 
+	public ActivitiesName getActivityName() {
+		return activityName;
+	}
+
 }

@@ -73,4 +73,8 @@ public class Producer implements Serializable {
 	@JoinTable(name = "producer_products")
 	private List<Product> products;
 
+	public FarmingActivity getFarmingActivity() {
+		return farmingActivity;
+	}
+
 }
