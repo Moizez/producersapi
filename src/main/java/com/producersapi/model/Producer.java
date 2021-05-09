@@ -1,6 +1,7 @@
 package com.producersapi.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
@@ -45,9 +47,13 @@ public class Producer implements Serializable {
 
 	private int role = 1;
 	
-	private String birthDate;
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date birthDate;
 
 	private String cpf;
+	
+	@JsonFormat(pattern="yyyy-MM-dd")
+	private Date created = new Date();
 
 	@ManyToOne
 	private Manager manager;

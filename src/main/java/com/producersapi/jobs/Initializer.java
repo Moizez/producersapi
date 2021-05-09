@@ -83,7 +83,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 		String activities[] = { "Agricultor", "Pescador", "Leiteiro" };
 
 		for (String label : activities) {
-			if (productService.findByLabel(label) == null) {
+			if (activityNameService.findByLabel(label) == null) {
 				ActivityName activity = new ActivityName();
 				activity.setLabel(label);
 				activityNameService.save(activity);
