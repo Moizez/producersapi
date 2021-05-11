@@ -1,20 +1,24 @@
 package com.producersapi.resource;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.producersapi.model.Producer;
 import com.producersapi.model.Product;
+import com.producersapi.reporty.ProductPdfReport;
 import com.producersapi.service.ProductService;
 import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;
@@ -79,5 +83,17 @@ public class ProductResource extends Response<Product> implements EntityResource
 
 		return ResponseEntity.notFound().build();
 	}
-
+	
+	@GetMapping("/pdf/{showProducers}")
+	public ResponseEntity<InputStreamResource> findAllPdf(@PathVariable("showProducers") boolean showProducers) {
+		List<Product> prodcuts = service.findAll();
+		ByteArrayInputStream bis = ProductPdfReport.ProductsReport(prodcuts, showProducers);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=report.pdf");
+		return ResponseEntity
+		        .ok()
+		        .headers(headers)
+		        .contentType(MediaType.APPLICATION_PDF)
+		        .body(new InputStreamResource(bis));
+	}
 }
