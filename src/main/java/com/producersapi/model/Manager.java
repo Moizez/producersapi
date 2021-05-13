@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -45,8 +43,7 @@ public class Manager implements Serializable {
 
 	private int role = 0;
 
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
 	
 	@ManyToOne(cascade = CascadeType.PERSIST)
