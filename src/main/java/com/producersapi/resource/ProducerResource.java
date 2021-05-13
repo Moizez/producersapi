@@ -1,11 +1,16 @@
 package com.producersapi.resource;
 
+import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.producersapi.model.Producer;
+import com.producersapi.model.Product;
+import com.producersapi.reporty.ProducerPdfReport;
+import com.producersapi.reporty.ProductPdfReport;
 import com.producersapi.service.ProducerService;
 import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;
@@ -88,5 +96,42 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 	@GetMapping("/findByActivity/{activityId}")
 	public ResponseEntity<List<Producer>> findByActivity(@PathVariable("activityId") Integer activityId) {
 		return ResponseEntity.ok(service.findByActivity(activityId));
+	}
+	
+	@GetMapping("/pdf/{showProducts}")
+	public ResponseEntity<InputStreamResource> findAllPdf(@PathVariable("showProducts") boolean showProducts) {
+		List<Producer> prodcuers = service.findAll();
+		ByteArrayInputStream bis = ProducerPdfReport.ProducersReport(prodcuers, showProducts);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=reportProducers.pdf");
+		return ResponseEntity
+		        .ok()
+		        .headers(headers)
+		        .contentType(MediaType.APPLICATION_PDF)
+		        .body(new InputStreamResource(bis));
+	}
+	
+	@GetMapping("/pdf")
+	public ResponseEntity<InputStreamResource> findAllPdf() {
+		return findAllPdf(false); 
+	}
+	
+	@GetMapping("/{id}/pdf/{showProducts}")
+	public ResponseEntity<InputStreamResource> findOnePdf(@PathVariable("id") Integer id, @PathVariable("showProducts") boolean showProducts) {
+		List<Producer> prodcuers = new ArrayList<>();
+		prodcuers.add(service.findById(id).get());
+		ByteArrayInputStream bis = ProducerPdfReport.ProducersReport(prodcuers, showProducts);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "inline; filename=reportProducers.pdf");
+		return ResponseEntity
+		        .ok()
+		        .headers(headers)
+		        .contentType(MediaType.APPLICATION_PDF)
+		        .body(new InputStreamResource(bis));
+	}
+	
+	@GetMapping("/{id}/pdf")
+	public ResponseEntity<InputStreamResource> findByIdPdf(@PathVariable("id") Integer id) {
+		return findOnePdf(id, false);
 	}
 }

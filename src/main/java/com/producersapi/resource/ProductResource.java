@@ -90,7 +90,7 @@ public class ProductResource extends Response<Product> implements EntityResource
 		List<Product> prodcuts = service.findAll();
 		ByteArrayInputStream bis = ProductPdfReport.ProductsReport(prodcuts, showProducers);
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Disposition", "inline; filename=report.pdf");
+		headers.add("Content-Disposition", "inline; filename=reportProducts.pdf");
 		return ResponseEntity
 		        .ok()
 		        .headers(headers)
