@@ -75,5 +75,9 @@ public class Producer implements Serializable {
 	public FarmingActivity getFarmingActivity() {
 		return farmingActivity;
 	}
+	
+	public List<Product> getProducts() {
+		return products;
+	}
 
 }
