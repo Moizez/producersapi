@@ -45,7 +45,7 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 		Optional<Manager> manager = service.findById(id);
 
 		if (manager.isPresent()) {
-			BeanUtils.copyProperties(entity, manager.get(), "id");
+			BeanUtils.copyProperties(entity, manager.get(), "id", "password");
 
 			service.save(manager.get());
 			return ResponseEntity.ok(manager.get());

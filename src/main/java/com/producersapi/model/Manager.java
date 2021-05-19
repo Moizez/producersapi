@@ -54,7 +54,7 @@ public class Manager implements Serializable {
 	@OneToMany(mappedBy = "manager")
 	private List<Producer> producers;
 	
-	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "manager", cascade = CascadeType.ALL)
 	private List<Task> tasks;
 
 }
