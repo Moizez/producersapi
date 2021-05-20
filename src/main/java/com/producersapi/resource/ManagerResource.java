@@ -65,4 +65,5 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 
 		return ResponseEntity.notFound().build();
 	}
+
 }

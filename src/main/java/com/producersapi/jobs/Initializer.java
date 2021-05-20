@@ -39,7 +39,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 	
 	private void createManager() {
 		
-		Manager manager = managerService.findByEmail("leo@gmail.com");
+		Manager manager = managerService.findByEmail("leandrogrego@gmail.com");
 		Manager manager2 = managerService.findByEmail("thalitapolyana@hotmail.com");
 		Manager manager3 = managerService.findByEmail("bandeiraalisson@hotmail.com");
 		Manager manager4 = managerService.findByEmail("enbessa86@hotmail.com");
@@ -88,10 +88,11 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 			manager.setCpf("727.094.870-47");
 			manager.setBirthDate(new Date());
 			manager.setPhone("(84)95555-5555");
-			manager.setEmail("leo@gmail.com");
+			manager.setEmail("leandrogrego@gmail.com");
 			manager.setPassword("123");
 			manager.setAddress(address);
 			manager.setTasks(null);
+			manager.setRole(0);
 			managerService.save(manager);
 		}
 		
@@ -106,6 +107,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 			manager2.setPassword("admin87");
 			manager2.setAddress(address2);
 			manager2.setTasks(null);
+			manager2.setRole(0);
 			managerService.save(manager2);
 		}
 		
@@ -119,6 +121,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 			manager3.setEmail("bandeiraalisson@hotmail.com");
 			manager3.setPassword("admin97");
 			manager3.setAddress(address3);
+			manager.setRole(1);
 			manager3.setTasks(null);
 			managerService.save(manager3);
 		}
@@ -132,6 +135,7 @@ public class Initializer implements ApplicationListener<ContextRefreshedEvent> {
 			manager4.setPhone("(84)95555-5555");
 			manager4.setEmail("enbessa86@hotmail.com");
 			manager4.setPassword("admin86");
+			manager.setRole(1);
 			manager4.setAddress(address4);
 			manager4.setTasks(null);
 			managerService.save(manager4);
