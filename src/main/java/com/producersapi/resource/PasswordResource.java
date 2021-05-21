@@ -1,8 +1,12 @@
 package com.producersapi.resource;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -15,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,6 +29,8 @@ import com.producersapi.model.Manager;
 import com.producersapi.service.ManagerService;
 import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;
+
+import jdk.nashorn.api.scripting.JSObject;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -43,7 +50,7 @@ public class PasswordResource extends Response<Manager> {
 		if(manager != null) {
 			String password = manager.getPassword();
 			long time = new Date().getTime();
-			String hash = gerarHash(time+password);
+			String hash = gerarHash(""+password+time);
 			String host = "producerpoint.serviceapp.net.br";
 			String link = "https://"+host+"/recovery/"+email+"/"+time+"/"+hash;
 			try {
@@ -73,7 +80,7 @@ public class PasswordResource extends Response<Manager> {
 		) throws Exception {
 		Manager manager = service.findByEmail(email); 
 		String password = manager.getPassword();
-		String check = gerarHash(time+password);
+		String check = gerarHash(""+password+time);
 		int tempo = (int) ((new Date().getTime()-time)/1000/60);
 		if(hash.equals(check) && tempo<=10) {
 			return ResponseEntity.ok(manager);
@@ -83,30 +90,36 @@ public class PasswordResource extends Response<Manager> {
 	
 	@PutMapping("/")
 	public ResponseEntity<?> SetPassword(
-			String email,
-			long time,
-			String hash,
-			String newPassword
+			@RequestBody Map<String, String> params
 		) throws Exception {
+		
+		String email = (String) params.get("email");
+		long time = Long.parseLong(params.get("time"));
+		String hash = (String) params.get("token");
+		String newPassword = (String) params.get("newPassword");
+		
 		Manager manager = service.findByEmail(email); 
-		String password = manager.getPassword();
-		String check = gerarHash(time+password);
-		int tempo = (int) ((new Date().getTime()-time)/1000/60);
-		if(hash.equals(check) && tempo<=10) {
-			manager.setPassword(newPassword);
-			return ResponseEntity.ok(manager);
-		};
+		if(manager != null) {
+			String password = manager.getPassword();
+			String check = gerarHash(""+password+time);
+			int tempo = (int) ((new Date().getTime()-time)/1000/60);
+			if(hash.equals(check) && tempo<=10) {
+				manager.setPassword(newPassword);
+				service.save(manager);
+				return ResponseEntity.ok(manager);
+			};
+		}
 		return ResponseEntity.notFound().build();
 	}
 	
-	public static String gerarHash(String senha) throws Exception {
+	public static String gerarHash(String text) throws Exception {
 		MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
-		byte hash[] = algorithm.digest(senha.getBytes("UTF-8"));
-		StringBuilder texto = new StringBuilder();
+		byte hash[] = algorithm.digest(text.getBytes("UTF-8"));
+		StringBuilder outText = new StringBuilder();
 		for (byte b : hash) {
-			texto.append(String.format("%02X", 0xFF & b));
+			outText.append(String.format("%02X", 0xFF & b));
 		}
-		return texto.toString();
+		return outText.toString();
 	}
 
 }
