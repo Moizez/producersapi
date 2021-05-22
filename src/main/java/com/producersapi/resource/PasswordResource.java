@@ -30,8 +30,6 @@ import com.producersapi.service.ManagerService;
 import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;
 
-import jdk.nashorn.api.scripting.JSObject;
-
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/recovery")
@@ -43,6 +41,9 @@ public class PasswordResource extends Response<Manager> {
 	@Autowired 
 	private EmailService emailService;
 
+	// Prazo de validade do link de redefinição de senha
+	long prazo = 60; // minutos
+	
 	@PostMapping("/")
 	public ResponseEntity<?> SendEmail(@RequestParam String email) throws Exception {
 		
@@ -82,7 +83,7 @@ public class PasswordResource extends Response<Manager> {
 		String password = manager.getPassword();
 		String check = gerarHash(""+password+time);
 		int tempo = (int) ((new Date().getTime()-time)/1000/60);
-		if(hash.equals(check) && tempo<=10) {
+		if(hash.equals(check) && tempo<=prazo) {
 			return ResponseEntity.ok(manager);
 		};
 		return ResponseEntity.notFound().build();
@@ -103,7 +104,7 @@ public class PasswordResource extends Response<Manager> {
 			String password = manager.getPassword();
 			String check = gerarHash(""+password+time);
 			int tempo = (int) ((new Date().getTime()-time)/1000/60);
-			if(hash.equals(check) && tempo<=10) {
+			if(hash.equals(check) && tempo<=prazo) {
 				manager.setPassword(newPassword);
 				service.save(manager);
 				return ResponseEntity.ok(manager);
