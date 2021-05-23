@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -71,6 +72,9 @@ public class Producer implements Serializable {
 	@ManyToMany(cascade = {CascadeType.REFRESH, CascadeType.DETACH})
 	@JoinTable(name = "producer_products")
 	private List<Product> products;
+	
+	@OneToMany(mappedBy = "producer")
+	private List<SaleProducer> salesProducers;
 
 	public FarmingActivity getFarmingActivity() {
 		return farmingActivity;
@@ -78,6 +82,10 @@ public class Producer implements Serializable {
 	
 	public List<Product> getProducts() {
 		return products;
+	}
+	
+	public List<SaleProducer> gerSalesProducers() {
+		return salesProducers;
 	}
 
 }
