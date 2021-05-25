@@ -17,6 +17,8 @@ public interface ProducerRepository extends JpaRepository<Producer, Integer> {
 
 	public Producer findByEmail(String email);
 	
+	public Producer findProducerById(Integer id);
+	
 	@Query(value = "select * from producer p where p.status = true", nativeQuery = true)
 	public List<Producer> findByActiveProducers();
 

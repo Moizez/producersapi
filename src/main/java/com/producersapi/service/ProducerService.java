@@ -57,6 +57,10 @@ public class ProducerService implements EntityService<Producer> {
 		return repository.findByManager(id);
 	}
 	
+	public Producer getProducerById(Integer id) {
+		return repository.findProducerById(id);
+	}
+	
 	public List<Producer> findByActivity(Integer activityId) {
 		List<Producer> producers = findAll(); 
 		List<Producer> producersByActivity = new ArrayList<Producer>();

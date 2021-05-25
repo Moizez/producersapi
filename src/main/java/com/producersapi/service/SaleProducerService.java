@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.producersapi.model.Producer;
 import com.producersapi.model.SaleProducer;
+import com.producersapi.repository.ProducerRepository;
 import com.producersapi.repository.SaleProducerRepository;
 import com.producersapi.util.EntityService;
 import java.util.List;
@@ -15,6 +16,9 @@ public class SaleProducerService implements EntityService<SaleProducer> {
 	
 	@Autowired
 	private SaleProducerRepository repository;
+	
+	@Autowired
+	private ProducerService producerService;
 	
 	@Override
 	public void save(SaleProducer entity) {
@@ -34,6 +38,12 @@ public class SaleProducerService implements EntityService<SaleProducer> {
 	@Override
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
+	}
+	
+	public List<SaleProducer> getListProducer(Integer id) {
+		 Producer producer = producerService.getProducerById(id);
+		 
+		 return producer.gerSalesProducers();		 
 	}
 	
 	

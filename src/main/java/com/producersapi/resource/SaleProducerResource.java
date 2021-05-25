@@ -66,4 +66,8 @@ public class SaleProducerResource extends Response<SaleProducer> implements Enti
 
 		return ResponseEntity.notFound().build();
 	}
+	
+	public ResponseEntity<List<SaleProducer>> getSalesProducerById(Integer id) {
+		return (ResponseEntity<List<SaleProducer>>) service.getListProducer(id);
+	}
 }
