@@ -29,19 +29,41 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 	
 	@Autowired
 	private PasswordResource res;
+	
+	//Verifica se o email e CFP já exitem para outro Manager
+	private boolean checkNotDuplicate(Manager entity) {
+		Manager checkEmail = service.findByEmail(entity.getEmail());
+		Manager checkCpf = service.findByCpf(entity.getCpf());
+		
+		if(checkEmail != null) {
+			if(!checkEmail.getId().toString().equals(entity.getId().toString())){ 
+				return false;
+			};
+		};
+		if(checkCpf != null){
+			if(!checkCpf.getId().toString().equals(entity.getId().toString())){ 
+				return false;
+			}
+		}
+		return true;
+	}
 
 	@Override
 	public ResponseEntity<Manager> save(Manager entity) {
-		service.save(entity);
-		if (entity.getId() > 0) {
-			try {
-				res.SendEmail(entity.getEmail());
-			} catch ( Exception e ) {
-				System.out.println(e);
-			};
-		};		
-		return new ResponseEntity<Manager>(entity, HttpStatus.CREATED);
+		if(checkNotDuplicate(entity)) {
+			service.save(entity);
+			if (entity.getId() > 0) {
+				try {
+					res.SendEmail(entity.getEmail());
+				} catch ( Exception e ) {
+					System.out.println(e);
+				};
+			};		
+			return new ResponseEntity<Manager>(entity, HttpStatus.CREATED);
+		} 
+		return ResponseEntity.badRequest().build();
 	}
+		
 
 	@Override
 	public ResponseEntity<List<Manager>> findAll() {
@@ -55,16 +77,17 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 
 	@Override
 	public ResponseEntity<Manager> updateById(Integer id, Manager entity) {
-		Optional<Manager> manager = service.findById(id);
-
-		if (manager.isPresent()) {
-			BeanUtils.copyProperties(entity, manager.get(), "id", "password");
-
-			service.save(manager.get());
-			return ResponseEntity.ok(manager.get());
+		entity.setId(id);
+		if(checkNotDuplicate(entity)) {
+			Optional<Manager> manager = service.findById(id);
+			if (manager.isPresent()) {
+				BeanUtils.copyProperties(entity, manager.get(), "id", "password");
+				service.save(manager.get());
+				return ResponseEntity.ok(manager.get());
+			}	
+			return ResponseEntity.notFound().build();
 		}
-
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.badRequest().build();
 	}
 
 	@Override
@@ -75,13 +98,23 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 			service.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
-
 		return ResponseEntity.notFound().build();
 	}
 	
 	@GetMapping("/findByEmail/{email}")
 	public ResponseEntity<Manager> findByEmail(@PathVariable("email") String email) {
 		Manager manager = service.findByEmail(email);
+		if(manager !=null) {
+			return ResponseEntity.ok(manager);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+		
+	}
+	
+	@GetMapping("/findByCpf/{cpf}")
+	public ResponseEntity<Manager> findByCpf(@PathVariable("cpf") String cpf) {
+		Manager manager = service.findByCpf(cpf);
 		if(manager !=null) {
 			return ResponseEntity.ok(manager);
 		} else {

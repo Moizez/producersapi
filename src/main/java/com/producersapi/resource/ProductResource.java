@@ -97,4 +97,15 @@ public class ProductResource extends Response<Product> implements EntityResource
 		        .contentType(MediaType.APPLICATION_PDF)
 		        .body(new InputStreamResource(bis));
 	}
+	
+	@GetMapping("/findByName/{name}")
+	public ResponseEntity<Product> findByName(@PathVariable("name") String name) {
+		Product product = service.findByLabel(name);
+		if(product !=null) {
+			return ResponseEntity.ok(product);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+		
+	}
 }

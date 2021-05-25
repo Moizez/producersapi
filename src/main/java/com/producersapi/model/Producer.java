@@ -39,7 +39,7 @@ public class Producer implements Serializable {
 
 	private String phone;
 
-	private String email;
+	private String email = "";
 	
 	private boolean status = true;
 

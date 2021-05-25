@@ -43,5 +43,9 @@ public class ManagerService implements EntityService<Manager> {
 	public Manager findByEmail(String email) {
 		return repository.findByEmail(email);
 	}
+	
+	public Manager findByCpf(String cpf) {
+		return repository.findByCpf(cpf);
+	}
 
 }
