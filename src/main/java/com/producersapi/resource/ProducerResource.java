@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.producersapi.model.Producer;
-import com.producersapi.model.Product;
 import com.producersapi.reporty.ProducerPdfReport;
-import com.producersapi.reporty.ProductPdfReport;
 import com.producersapi.service.ProducerService;
 import com.producersapi.util.EntityResource;
 import com.producersapi.util.Response;

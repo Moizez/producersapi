@@ -1,12 +1,15 @@
 package com.producersapi.resource;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.mapping.Map;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.ResponseEntity.BodyBuilder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,23 +36,26 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 	//Verifica se o email e CFP já exitem para outro Manager
 	private boolean checkNotDuplicate(Manager entity) {
 		Manager checkEmail = service.findByEmail(entity.getEmail());
-		Manager checkCpf = service.findByCpf(entity.getCpf());
-		
 		if(checkEmail != null) {
-			if(!checkEmail.getId().toString().equals(entity.getId().toString())){ 
+			if(!checkEmail.getId().equals(entity.getId())){ 
+				System.out.println("e-mail repedito");
 				return false;
 			};
 		};
+		
+		Manager checkCpf = service.findByCpf(entity.getCpf());
 		if(checkCpf != null){
-			if(!checkCpf.getId().toString().equals(entity.getId().toString())){ 
+			if(!checkCpf.getId().equals(entity.getId())){ 
+				System.out.println("CPF repedito");
 				return false;
 			}
 		}
+		System.out.println("Tudo Certo");
 		return true;
 	}
 
 	@Override
-	public ResponseEntity<Manager> save(Manager entity) {
+	public ResponseEntity<?> save(Manager entity) {
 		if(checkNotDuplicate(entity)) {
 			service.save(entity);
 			if (entity.getId() > 0) {
@@ -61,9 +67,8 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 			};		
 			return new ResponseEntity<Manager>(entity, HttpStatus.CREATED);
 		} 
-		return ResponseEntity.badRequest().build();
+		return ResponseEntity.badRequest().body("{\"message\": \"E-mail ou CPF já cadastrado para outro usuário!\" }");
 	}
-		
 
 	@Override
 	public ResponseEntity<List<Manager>> findAll() {
@@ -71,13 +76,14 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 	}
 
 	@Override
-	public ResponseEntity<Manager> findById(Integer id) {
+	public ResponseEntity<?> findById(Integer id) {
 		return findById(service, id);
 	}
 
 	@Override
-	public ResponseEntity<Manager> updateById(Integer id, Manager entity) {
+	public ResponseEntity<?> updateById(Integer id, Manager entity) {
 		entity.setId(id);
+		System.out.println("updateById");
 		if(checkNotDuplicate(entity)) {
 			Optional<Manager> manager = service.findById(id);
 			if (manager.isPresent()) {
@@ -87,38 +93,38 @@ public class ManagerResource extends Response<Manager> implements EntityResource
 			}	
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.badRequest().build();
+		return ResponseEntity.badRequest().body("{\"message\": \"E-mail ou CPF já cadastrado para outro usuário!\" }");
 	}
 
 	@Override
-	public ResponseEntity<Manager> deleteById(Integer id) {
+	public ResponseEntity<?> deleteById(Integer id) {
 		Optional<Manager> manager = service.findById(id);
 
 		if (manager.isPresent()) {
 			service.deleteById(id);
 			return ResponseEntity.ok().build();
 		}
-		return ResponseEntity.notFound().build();
+		return ((BodyBuilder) ResponseEntity.notFound()).body("\"message\": \"Usuário não encontrato!\"");
 	}
 	
 	@GetMapping("/findByEmail/{email}")
-	public ResponseEntity<Manager> findByEmail(@PathVariable("email") String email) {
+	public ResponseEntity<?> findByEmail(@PathVariable("email") String email) {
 		Manager manager = service.findByEmail(email);
 		if(manager !=null) {
 			return ResponseEntity.ok(manager);
 		} else {
-			return ResponseEntity.notFound().build();
+			return ((BodyBuilder) ResponseEntity.notFound()).body("\"message\": \"Usuário não encontrato!\"");
 		}
 		
 	}
 	
 	@GetMapping("/findByCpf/{cpf}")
-	public ResponseEntity<Manager> findByCpf(@PathVariable("cpf") String cpf) {
+	public ResponseEntity<?> findByCpf(@PathVariable("cpf") String cpf) {
 		Manager manager = service.findByCpf(cpf);
 		if(manager !=null) {
 			return ResponseEntity.ok(manager);
 		} else {
-			return ResponseEntity.notFound().build();
+			return ((BodyBuilder) ResponseEntity.notFound()).body("\"message\": \"Usuário não encontrato!\"");
 		}
 		
 	}
