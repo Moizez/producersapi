@@ -33,7 +33,7 @@ public class SaleProducerResource extends Response<SaleProducer> implements Enti
 		return new ResponseEntity<SaleProducer>(entity, HttpStatus.CREATED);
 	}
 	
-	@PostMapping("/saveBy/{id}")
+	@PostMapping("/saveBy")
 	public ResponseEntity<SaleProducer> saveBy(SaleProducer entity, Integer id) {
 		service.saveBy(entity, id);
 		return new ResponseEntity<SaleProducer>(entity, HttpStatus.CREATED);
