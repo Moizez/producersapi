@@ -1,7 +1,5 @@
 package com.producersapi.util;
 
-import java.util.List;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,17 +13,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 public interface EntityResource<Entity extends Object> {
 
 	@PostMapping
-	public ResponseEntity<Entity> save(@RequestBody Entity entity);
+	public ResponseEntity<?> save(@RequestBody Entity entity);
 
 	@GetMapping
-	public ResponseEntity<List<Entity>> findAll();
+	public ResponseEntity<?> findAll();
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Entity> findById(@PathVariable("id") Integer id);
+	public ResponseEntity<?> findById(@PathVariable("id") Integer id);
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Entity> updateById(@PathVariable("id") Integer id, @RequestBody Entity entity);
+	public ResponseEntity<?> updateById(@PathVariable("id") Integer id, @RequestBody Entity entity);
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Entity> deleteById(@PathVariable("id") Integer id);
+	public ResponseEntity<?> deleteById(@PathVariable("id") Integer id);
 }
