@@ -3,6 +3,9 @@ package com.producersapi.util;
 import java.util.List;
 import java.util.Optional;
 
+import com.producersapi.model.ActivityName;
+import com.producersapi.model.SaleProducer;
+
 public interface EntityService<Entity extends Object> {
 	
 	public void save(Entity entity);
@@ -12,4 +15,5 @@ public interface EntityService<Entity extends Object> {
 	public Optional<Entity> findById(Integer id);
 
 	public void deleteById(Integer id);
+
 }

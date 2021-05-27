@@ -20,8 +20,9 @@ public class SaleProducerService implements EntityService<SaleProducer> {
 	@Autowired
 	private ProducerService producerService;
 	
-	@Override
-	public void save(SaleProducer entity) {
+	public void saveBy(SaleProducer entity, Integer id) {
+		Producer producer = producerService.getProducerById(id);
+		entity.setProducer(producer);
 		repository.saveAndFlush(entity);
 	}
 	
@@ -44,6 +45,12 @@ public class SaleProducerService implements EntityService<SaleProducer> {
 		 Producer producer = producerService.getProducerById(id);
 		 
 		 return producer.gerSalesProducers();		 
+	}
+
+	@Override
+	public void save(SaleProducer entity) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

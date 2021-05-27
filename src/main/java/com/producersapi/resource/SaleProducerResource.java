@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.producersapi.model.ActivityName;
@@ -29,6 +30,12 @@ public class SaleProducerResource extends Response<SaleProducer> implements Enti
 	@Override
 	public ResponseEntity<SaleProducer> save(SaleProducer entity) {
 		service.save(entity);
+		return new ResponseEntity<SaleProducer>(entity, HttpStatus.CREATED);
+	}
+	
+	@PostMapping("/saveBy/{id}")
+	public ResponseEntity<SaleProducer> saveBy(SaleProducer entity, Integer id) {
+		service.saveBy(entity, id);
 		return new ResponseEntity<SaleProducer>(entity, HttpStatus.CREATED);
 	}
 
