@@ -73,6 +73,7 @@ public class Producer implements Serializable {
 	@JoinTable(name = "producer_products")
 	private List<Product> products;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "producer")
 	private List<SaleProducer> salesProducers;
 

@@ -51,13 +51,13 @@ public class SaleProducerResource extends Response<SaleProducer> implements Enti
 	
 	@Override
 	public ResponseEntity<SaleProducer> updateById(Integer id, SaleProducer entity) {
-		Optional<SaleProducer> activity = service.findById(id);
+		Optional<SaleProducer> sale = service.findById(id);
 
-		if (activity.isPresent()) {
-			BeanUtils.copyProperties(entity, activity.get(), "id");
+		if (sale.isPresent()) {
+			BeanUtils.copyProperties(entity, sale.get(), "id");
 
-			service.save(activity.get());
-			return ResponseEntity.ok(activity.get());
+			service.save(sale.get());
+			return ResponseEntity.ok(sale.get());
 		}
 
 		return ResponseEntity.notFound().build();
