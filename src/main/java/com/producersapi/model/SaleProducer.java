@@ -37,25 +37,11 @@ public class SaleProducer implements Serializable {
 	
 	private Parameter parameter;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "saleProducer_product")
+	@ManyToOne
 	private Product product;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
-	@JoinColumn(name = "saleProducer_producer")
+	@ManyToOne
 	private Producer producer;
-	
-	public Parameter getParameter() {
-		return parameter;
-	}
-	
-	public Product getProduct() {
-		return product;
-	}
-	
-	public Producer getProducer() {
-		return producer;
-	}
 	
 }
 

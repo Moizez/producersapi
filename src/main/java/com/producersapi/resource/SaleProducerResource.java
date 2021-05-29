@@ -10,10 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.producersapi.model.ActivityName;
+import com.producersapi.model.Producer;
 import com.producersapi.model.SaleProducer;
 import com.producersapi.service.SaleProducerService;
 import com.producersapi.util.EntityResource;
@@ -26,16 +25,10 @@ public class SaleProducerResource extends Response<SaleProducer> implements Enti
 
 	@Autowired
 	private SaleProducerService service;
-	
+
 	@Override
 	public ResponseEntity<SaleProducer> save(SaleProducer entity) {
 		service.save(entity);
-		return new ResponseEntity<SaleProducer>(entity, HttpStatus.CREATED);
-	}
-	
-	@PostMapping("/saveBy")
-	public ResponseEntity<SaleProducer> saveBy(SaleProducer entity, Integer id) {
-		service.saveBy(entity, id);
 		return new ResponseEntity<SaleProducer>(entity, HttpStatus.CREATED);
 	}
 
@@ -74,9 +67,5 @@ public class SaleProducerResource extends Response<SaleProducer> implements Enti
 
 		return ResponseEntity.notFound().build();
 	}
-	
-	@GetMapping("/findSalesProducerById/{id}")
-	public ResponseEntity<List<SaleProducer>> getSalesProducerById(Integer id) {
-		return (ResponseEntity<List<SaleProducer>>) service.getListProducer(id);
-	}
+
 }

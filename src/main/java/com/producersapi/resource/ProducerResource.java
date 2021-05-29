@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.producersapi.model.Producer;
+import com.producersapi.model.SaleProducer;
 import com.producersapi.reporty.ProducerPdfReport;
 import com.producersapi.service.ProducerService;
 import com.producersapi.util.EntityResource;
@@ -126,6 +127,11 @@ public class ProducerResource extends Response<Producer> implements EntityResour
 		        .headers(headers)
 		        .contentType(MediaType.APPLICATION_PDF)
 		        .body(new InputStreamResource(bis));
+	}
+	
+	@GetMapping("/{id}/sales")
+	public ResponseEntity<List<SaleProducer>> findByIdSales(@PathVariable("id") Integer id) {
+		return ResponseEntity.ok(service.findById(id).get().getSalesProducer());
 	}
 	
 	@GetMapping("/{id}/pdf")

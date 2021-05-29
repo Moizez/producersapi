@@ -74,19 +74,8 @@ public class Producer implements Serializable {
 	private List<Product> products;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "producer")
-	private List<SaleProducer> salesProducers;
-
-	public FarmingActivity getFarmingActivity() {
-		return farmingActivity;
-	}
-	
-	public List<Product> getProducts() {
-		return products;
-	}
-	
-	public List<SaleProducer> gerSalesProducers() {
-		return salesProducers;
-	}
+	@OneToMany
+    @JoinColumn(name = "producer_id") 
+    private List<SaleProducer> salesProducer;
 
 }

@@ -20,9 +20,8 @@ public class SaleProducerService implements EntityService<SaleProducer> {
 	@Autowired
 	private ProducerService producerService;
 	
-	public void saveBy(SaleProducer entity, Integer id) {
-		Producer producer = producerService.getProducerById(id);
-		entity.setProducer(producer);
+	@Override
+	public void save(SaleProducer entity) {
 		repository.saveAndFlush(entity);
 	}
 	
@@ -40,18 +39,5 @@ public class SaleProducerService implements EntityService<SaleProducer> {
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
 	}
-	
-	public List<SaleProducer> getListProducer(Integer id) {
-		 Producer producer = producerService.getProducerById(id);
-		 
-		 return producer.gerSalesProducers();		 
-	}
-
-	@Override
-	public void save(SaleProducer entity) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	
 }
