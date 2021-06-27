@@ -50,6 +50,8 @@ public class Producer implements Serializable {
 	
 	@JsonFormat(pattern="yyyy-MM-dd")
 	private Date birthDate;
+	
+	private String rg;
 
 	private String cpf;
 	
