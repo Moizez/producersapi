@@ -34,10 +34,6 @@ public class FarmingActivity implements Serializable {
 	@ManyToOne
 	private ActivityName activityName2;
 
-	private Period period2;
-
-	private float averageCash2;
-
 	@JsonIgnore
 	@OneToMany(mappedBy = "farmingActivity", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Producer> producers;
