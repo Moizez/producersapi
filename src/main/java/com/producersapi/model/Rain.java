@@ -1,6 +1,8 @@
 package com.producersapi.model;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.Optional;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import lombok.Data;
 
@@ -28,12 +32,18 @@ public class Rain implements Serializable{
 	@Column(name = "rain_date")
 	private String date;
 	
-	@JsonIgnore
+	private Date added = new Date();
+	
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
 	private Site site;
 
-	@JsonIgnore
+	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
 	private Manager manager;
+
+	public void setSite(Site site) {
+		this.site = site;
+	}
 
 }
