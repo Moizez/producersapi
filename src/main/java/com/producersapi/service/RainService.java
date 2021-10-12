@@ -9,10 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.producersapi.model.Rain;
 import com.producersapi.model.Site;
-import com.producersapi.model.Task;
 import com.producersapi.repository.RainRepository;
 import com.producersapi.repository.SiteRepository;
-import com.producersapi.repository.TaskRepository;
 import com.producersapi.util.EntityService;
 
 @Service
@@ -57,4 +55,8 @@ public class RainService implements EntityService<Rain>{
 		return rainrepository.findByPeriod(init, end);
 	}
 	
+	public List<Rain> FindBySiteAndPeriod(Integer id, String init, String end){
+		return rainrepository.findBySiteAndByPeriod(id, init, end);
+	}
+
 }

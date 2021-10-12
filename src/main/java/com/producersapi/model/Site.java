@@ -34,4 +34,12 @@ public class Site implements Serializable{
 	@OneToMany(mappedBy = "site", cascade = CascadeType.ALL)
 	private List<Rain> rains;
 
+	public void setRains(List<Rain> rains) {
+		this.rains = rains;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
 }

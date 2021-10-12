@@ -24,4 +24,7 @@ public interface RainRepository extends JpaRepository<Rain, Integer> {
 	
 	public List<Rain> findBySite(Site site);
 	
+	@Query(value = "SELECT * FROM `rain` WHERE `site_id` = ? AND `rain_date` BETWEEN ? AND ? ORDER BY `rain_date` ASC", nativeQuery = true)
+	public List<Rain> findBySiteAndByPeriod(Integer siteId, String init, String end);
+	
 }
